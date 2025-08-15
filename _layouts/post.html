@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<article>
+  <h1>{{ page.title }}</h1>
+  <div class="meta">{{ page.date | date: "%d %B, %Y" }}{% if page.author %}, {{ page.author }}{% endif %}</div>
+  {{ content }}
+  {% if page.tags %}
+    <p class="tags">
+    {% for t in page.tags %}
+      <a href="{{ '/tag/' | append: t | append: '/' | relative_url }}">#{{ t }}</a>
+    {% endfor %}
+    </p>
+  {% endif %}
+</article>

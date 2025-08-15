@@ -1,0 +1,12 @@
+:root { --maxw: 68ch; }
+* { box-sizing: border-box; }
+body { margin:0; font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; }
+header, main, footer { max-width: var(--maxw); margin: 0 auto; padding: 1rem; }
+header { display:flex; gap:1rem; align-items:center; justify-content:space-between; border-bottom:1px solid #e5e7eb; }
+nav a { margin-right: .75rem; text-decoration:none; color:#111; }
+h1, h2 { line-height:1.2; margin:1.25rem 0 .5rem; }
+.post { padding:1rem 0; border-bottom:1px solid #f0f0f0; }
+.meta { color:#555; font-size:.9rem; margin:.25rem 0 .5rem; }
+.tags a { font-size:.85rem; padding:.15rem .5rem; border:1px solid #ddd; border-radius:.5rem; margin-right:.35rem; text-decoration:none; color:#333; }
+footer { color:#666; font-size:.9rem; border-top:1px solid #e5e7eb; margin-top:2rem; }
+.pagination a { margin-right:.5rem; }

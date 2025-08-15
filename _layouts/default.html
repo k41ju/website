@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- seo -%}
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}?v={{ site.time | date: "%s" }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="{{ '/feed.xml' | relative_url }}">
+</head>
+<body>
+<header>
+  <a href="{{ '/' | relative_url }}"><strong>{{ site.title }}</strong></a>
+  <nav>
+    <a href="{{ '/club/'        | relative_url }}">Club</a>
+    <a href="{{ '/regional/'    | relative_url }}">Regional</a>
+    <a href="{{ '/support/'     | relative_url }}">Support</a>
+    <a href="{{ '/topics/'      | relative_url }}">Topics</a>
+    <a href="https://events.example.com">Events</a>
+    <a href="{{ '/publications/'| relative_url }}">Publications</a>
+    <a href="{{ '/transparency/'| relative_url }}">Transparency</a>
+    <a href="{{ '/contact/'     | relative_url }}">Contact</a>
+  </nav>
+</header>
+<main>
+  {{ content }}
+</main>
+<footer>
+  <a href="{{ '/imprint/' | relative_url }}">Imprint</a> ·
+  <a href="{{ '/privacy/' | relative_url }}">Privacy</a> ·
+  <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+</footer>
+</body>
+</html>

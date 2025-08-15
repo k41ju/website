@@ -1,0 +1,38 @@
+title: Your Club
+description: "Minimal CCC-like news site"
+url: https://example.com
+baseurl: ""
+timezone: UTC
+
+theme: null
+markdown: kramdown
+
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-archives
+
+paginate: 10
+paginate_path: "/page:num/"
+permalink: /:categories/:title/
+
+jekyll-archives:
+  enabled: [tags]
+  layouts:
+    tag: tag
+  permalinks:
+    tag: /tag/:name/
+
+feed:
+  path: feed.xml
+
+# Keep build artifacts clean in repo
+exclude:
+  - node_modules/
+  - vendor/
+  - .bundle/
+  - .sass-cache/
+  - .jekyll-cache/
+  - _site/
