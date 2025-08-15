@@ -1,79 +1,18 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {%- seo -%}
+  {% include head.html %}
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    {% include header.html %}
 
-  <!-- Prevent theme flash -->
-  <script>
-    (function () {
-      try {
-        var t = localStorage.getItem('theme');
-        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-      } catch(e) {}
-    })();
-  </script>
+    <div class="shell">
+      {% include sidebar.html %}
+      <main id="content" class="content" role="main" tabindex="-1">
+        {{ content }}
+      </main>
+    </div>
 
-  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="{{ '/feed.xml' | relative_url }}">
-</head>
-<body>
-<div class="wrap">
-  <aside class="sidebar" role="complementary">
-    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-
-    <nav class="vnav" aria-label="Primary">
-      <a href="{{ '/'               | relative_url }}">Home</a>
-      <a href="{{ '/club/'          | relative_url }}">Club</a>
-      <a href="{{ '/regional/'      | relative_url }}">Regional</a>
-      <a href="{{ '/support/'       | relative_url }}">Support</a>
-      <a href="{{ '/topics/'        | relative_url }}">Topics</a>
-      <a href="https://events.example.com">Events</a>
-      <a href="{{ '/publications/'  | relative_url }}">Publications</a>
-      <a href="{{ '/transparency/'  | relative_url }}">Transparency</a>
-      <a href="{{ '/contact/'       | relative_url }}">Contact</a>
-      <a href="{{ '/feed.xml'       | relative_url }}">RSS</a>
-    </nav>
-
-    <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">🌓 Theme</button>
-  </aside>
-
-  <main class="content" id="content">
-    {{ content }}
-
-    <footer class="footer">
-      <a href="{{ '/imprint/' | relative_url }}">Imprint</a> ·
-      <a href="{{ '/privacy/' | relative_url }}">Privacy</a> ·
-      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-    </footer>
-  </main>
-</div>
-
-<script>
-  (function () {
-    var btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-
-    function current() {
-      return document.documentElement.getAttribute('data-theme') ||
-        (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    }
-    function setTheme(mode) {
-      document.documentElement.setAttribute('data-theme', mode);
-      try { localStorage.setItem('theme', mode); } catch(e) {}
-      btn.setAttribute('aria-pressed', mode === 'dark');
-    }
-    setTheme(current());
-    btn.addEventListener('click', function(){ setTheme(current()==='dark' ? 'light' : 'dark'); });
-
-    try {
-      if (!localStorage.getItem('theme') && window.matchMedia) {
-        window.matchMedia('(prefers-color-scheme: dark)')
-          .addEventListener('change', e => setTheme(e.matches ? 'dark' : 'light'));
-      }
-    } catch(e) {}
-  })();
-</script>
-</body>
+    {% include footer.html %}
+    <script src="/assets/js/main.js" defer></script>
+  </body>
 </html>
