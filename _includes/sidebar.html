@@ -1,0 +1,12 @@
+<nav id="sidebar" class="sidebar" aria-label="Primary">
+  <ul class="nav">
+    {% for item in site.data.nav %}
+      <li class="nav-item">
+        <a href="{{ item.url | relative_url }}"
+           class="{% if page.url == item.url %}is-active{% endif %}">
+          {{ item.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
