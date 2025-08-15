@@ -4,11 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- seo -%}
-  
-<link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
-<link rel="icon" type="image/png" href="{{ '/assets/icon-192.png' | relative_url }}" sizes="192x192">
-<link rel="apple-touch-icon" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" sizes="180x180">
-<meta name="theme-color" content="#0b0b0c">
 
   <!-- Prevent theme flash -->
   <script>
@@ -24,32 +19,36 @@
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="{{ '/feed.xml' | relative_url }}">
 </head>
 <body>
-<header class="header">
-  <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+<div class="wrap">
+  <aside class="sidebar" role="complementary">
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 
-  <nav class="nav" aria-label="Main">
-    <a href="{{ '/club/'        | relative_url }}">Club</a>
-    <a href="{{ '/regional/'    | relative_url }}">Regional</a>
-    <a href="{{ '/support/'     | relative_url }}">Support</a>
-    <a href="{{ '/topics/'      | relative_url }}">Topics</a>
-    <a href="https://events.example.com">Events</a>
-    <a href="{{ '/publications/'| relative_url }}">Publications</a>
-    <a href="{{ '/transparency/'| relative_url }}">Transparency</a>
-    <a href="{{ '/contact/'     | relative_url }}">Contact</a>
-  </nav>
+    <nav class="vnav" aria-label="Primary">
+      <a href="{{ '/'               | relative_url }}">Home</a>
+      <a href="{{ '/club/'          | relative_url }}">Club</a>
+      <a href="{{ '/regional/'      | relative_url }}">Regional</a>
+      <a href="{{ '/support/'       | relative_url }}">Support</a>
+      <a href="{{ '/topics/'        | relative_url }}">Topics</a>
+      <a href="https://events.example.com">Events</a>
+      <a href="{{ '/publications/'  | relative_url }}">Publications</a>
+      <a href="{{ '/transparency/'  | relative_url }}">Transparency</a>
+      <a href="{{ '/contact/'       | relative_url }}">Contact</a>
+      <a href="{{ '/feed.xml'       | relative_url }}">RSS</a>
+    </nav>
 
-  <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">🌓</button>
-</header>
+    <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">🌓 Theme</button>
+  </aside>
 
-<main>
-  {{ content }}
-</main>
+  <main class="content" id="content">
+    {{ content }}
 
-<footer class="footer">
-  <a href="{{ '/imprint/' | relative_url }}">Imprint</a> ·
-  <a href="{{ '/privacy/' | relative_url }}">Privacy</a> ·
-  <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-</footer>
+    <footer class="footer">
+      <a href="{{ '/imprint/' | relative_url }}">Imprint</a> ·
+      <a href="{{ '/privacy/' | relative_url }}">Privacy</a> ·
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+    </footer>
+  </main>
+</div>
 
 <script>
   (function () {
@@ -67,9 +66,11 @@
     }
     setTheme(current());
     btn.addEventListener('click', function(){ setTheme(current()==='dark' ? 'light' : 'dark'); });
+
     try {
       if (!localStorage.getItem('theme') && window.matchMedia) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => setTheme(e.matches?'dark':'light'));
+        window.matchMedia('(prefers-color-scheme: dark)')
+          .addEventListener('change', e => setTheme(e.matches ? 'dark' : 'light'));
       }
     } catch(e) {}
   })();
