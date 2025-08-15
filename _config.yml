@@ -18,6 +18,8 @@ paginate: 10
 paginate_path: "/page:num/"
 permalink: /:categories/:title/
 
+excerpt_separator: "<!--more-->"
+
 jekyll-archives:
   enabled: [tags]
   layouts:
