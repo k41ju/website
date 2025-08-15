@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-deploy-${{ github.ref }}
+  group: pages-deploy-main
   cancel-in-progress: true
 
 jobs:
