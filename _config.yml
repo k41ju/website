@@ -7,6 +7,8 @@ timezone: UTC
 theme: null
 markdown: kramdown
 
+logo: /assets/og.png
+
 plugins:
   - jekyll-feed
   - jekyll-paginate
