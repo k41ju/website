@@ -4,28 +4,32 @@ layout: default
 <h1>News</h1>
 
 {% for post in paginator.posts %}
-  <article class="post">
-    <div class="date">{{ post.date | date: "%d %b %Y" }}</div>
-    <div class="body">
-      <h2 class="title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-      <div class="meta">{% if post.author %}{{ post.author }} · {% endif %}{{ post.date | date: "%A" }}</div>
-      <div class="excerpt">{{ post.excerpt }}</div>
-      {% if post.tags and post.tags.size > 0 %}
-      <div class="tags">
-        {% for t in post.tags %}
-          <a href="{{ '/tag/' | append: t | append: '/' | relative_url }}">#{{ t }}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
+  <article class="entry">
+    <h2 class="entry-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p class="entry-meta">
+      {{ post.date | date: "%d %B, %Y %H:%M" }}{% if post.author %}, {{ post.author }}{% endif %}
+    </p>
+    <div class="entry-excerpt">{{ post.excerpt }}</div>
+    <p class="more"><a href="{{ post.url | relative_url }}">more …</a></p>
   </article>
 {% endfor %}
 
-<div class="pagination">
+<nav class="pagination">
   {% if paginator.previous_page %}
     <a href="{{ paginator.previous_page_path | relative_url }}">« Previous</a>
   {% endif %}
   {% if paginator.next_page %}
     <a href="{{ paginator.next_page_path | relative_url }}">Next »</a>
   {% endif %}
-</div>
+</nav>
+
+<section class="tags-section">
+  <h2>Tags</h2>
+  <ul class="taglist">
+    {% assign tags = site.tags | sort %}
+    {% for t in tags %}
+      {% assign name = t[0] %}
+      <li><a href="{{ '/tag/' | append: name | append: '/' | relative_url }}">{{ name }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
