@@ -3,14 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   {%- seo -%}
-  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}?v={{ site.time | date: "%s" }}">
+
+  <!-- Prevent theme flash: set data-theme before paint -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="{{ '/feed.xml' | relative_url }}">
 </head>
 <body>
-<header>
-  <a href="{{ '/' | relative_url }}"><strong>{{ site.title }}</strong></a>
-  <nav>
+<header class="header">
+  <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+
+  <nav class="nav" aria-label="Main">
     <a href="{{ '/club/'        | relative_url }}">Club</a>
     <a href="{{ '/regional/'    | relative_url }}">Regional</a>
     <a href="{{ '/support/'     | relative_url }}">Support</a>
@@ -20,14 +35,55 @@
     <a href="{{ '/transparency/'| relative_url }}">Transparency</a>
     <a href="{{ '/contact/'     | relative_url }}">Contact</a>
   </nav>
+
+  <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+    🌓
+  </button>
 </header>
+
 <main>
   {{ content }}
 </main>
+
 <footer>
   <a href="{{ '/imprint/' | relative_url }}">Imprint</a> ·
   <a href="{{ '/privacy/' | relative_url }}">Privacy</a> ·
   <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
 </footer>
+
+<script>
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    function currentTheme() {
+      return document.documentElement.getAttribute('data-theme') || (
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      );
+    }
+    function setTheme(mode) {
+      document.documentElement.setAttribute('data-theme', mode);
+      try { localStorage.setItem('theme', mode); } catch (e) {}
+      btn.setAttribute('aria-pressed', mode === 'dark');
+    }
+
+    // init
+    setTheme(currentTheme());
+
+    btn.addEventListener('click', function() {
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    });
+
+    // respond if OS preference changes and user hasn't chosen explicitly
+    try {
+      if (!localStorage.getItem('theme') && window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+          setTheme(e.matches ? 'dark' : 'light');
+        });
+      }
+    } catch (e) {}
+  })();
+</script>
 </body>
 </html>
