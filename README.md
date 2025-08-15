@@ -12,3 +12,4 @@
 - Add posts in `_posts/` with `YYYY-MM-DD-title.md`.
 - Tags auto-generate archive pages at `/tag/<name>/` via `jekyll-archives`.
 - CSS cache-busting uses a timestamp query string (`?v={{ site.time | date: "%s" }}`).
+  Trigger Deploy
