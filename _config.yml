@@ -1,42 +1,17 @@
-title: Your Club
-description: "Minimal CCC-like news site"
-url: https://example.com
-baseurl: ""
-timezone: UTC
-
+title: "Network Commons"
+description: "Technology, society, and security—resources and updates."
+lang: en
 theme: null
+permalink: pretty
 markdown: kramdown
-
-logo: /assets/og.png
-
+kramdown: { input: GFM }
 plugins:
-  - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-archives
-
+  - jekyll-feed
 paginate: 10
 paginate_path: "/page:num/"
-permalink: /:categories/:title/
-
-excerpt_separator: "<!--more-->"
-
-jekyll-archives:
-  enabled: [tags]
-  layouts:
-    tag: tag
-  permalinks:
-    tag: /tag/:name/
-
-feed:
-  path: feed.xml
-
-# Keep build artifacts clean in repo
-exclude:
-  - node_modules/
-  - vendor/
-  - .bundle/
-  - .sass-cache/
-  - .jekyll-cache/
-  - _site/
+defaults:
+  - scope: { path: "" }
+    values: { layout: default }
+exclude: [ "README.md", "LICENSE", "Gemfile", "Gemfile.lock" ]
