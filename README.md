@@ -1,5 +1,3 @@
-# CCC-style Jekyll 4 Site (Option 1)
-
 **Stack:** Jekyll 4.x + plugins (archives, feed, paginate, sitemap, SEO) deployed to **GitHub Pages via Actions**.
 
 ## Quick start
