@@ -1,6 +1,9 @@
-/* Theme tokens */
+/* ---- Theme tokens ---- */
 :root {
-  --maxw: 68ch;
+  --wrapw: 1120px;     /* total page width (sidebar + content) */
+  --sidebar: 14rem;    /* sidebar width */
+  --maxw: 68ch;        /* content column width */
+
   --bg: #ffffff; --fg: #111; --muted: #6b7280; --border: #e5e7eb; --link: #0f172a;
 }
 @media (prefers-color-scheme: dark) {
@@ -12,26 +15,82 @@ html[data-theme="dark"]  { --bg:#0b0b0c; --fg:#e5e7eb; --muted:#9aa0a6; --border
 * { box-sizing: border-box; }
 html { color-scheme: light dark; }
 body {
-  margin: 0; background: var(--bg); color: var(--fg);
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
   font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
 }
 
-/* Layout */
-.header, main, .footer { max-width: var(--maxw); margin: 0 auto; padding: 1rem; }
-.header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border); }
-.site-title { font-weight: 700; text-decoration: none; color: var(--fg); }
-.nav a { color: var(--fg); text-decoration: none; margin-right: .6rem; }
-.nav a:hover { text-decoration: underline; }
-.nav a + a::before { content: "·"; margin: 0 .5rem 0 .1rem; color: var(--muted); }
-#theme-toggle { border: 1px solid var(--border); background: transparent; color: var(--fg); border-radius: .5rem; padding: .35rem .5rem; cursor: pointer; }
+/* ---- Page grid: sidebar left, content right ---- */
+.wrap {
+  max-width: var(--wrapw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: var(--sidebar) 1fr;
+  min-height: 100vh;
+}
 
-.footer { color: var(--muted); font-size: .95rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+/* Sidebar */
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 1.25rem 1rem;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+}
+.site-title {
+  display: block;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--fg);
+  margin: 0 0 .75rem 0;
+}
+.vnav {
+  margin: .5rem 0 1rem 0;
+  padding: 0;
+}
+.vnav a {
+  display: block;
+  padding: .35rem 0;
+  color: var(--fg);
+  text-decoration: none;
+}
+.vnav a:hover { text-decoration: underline; }
 
-/* Headings and links */
+#theme-toggle {
+  margin-top: .75rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  border-radius: .5rem;
+  padding: .35rem .5rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Content column */
+.content {
+  padding: 1.25rem 1rem;
+  max-width: var(--maxw);
+  width: 100%;
+  justify-self: center;  /* center the 68ch column within the content area */
+}
+
+/* Footer */
+.footer {
+  color: var(--muted);
+  font-size: .95rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+  padding-top: .75rem;
+}
+
+/* Headings/links */
 h1, h2 { line-height: 1.25; margin: 1.25rem 0 .5rem; }
 a { color: var(--link); }
 
-/* Entries (single-column list) */
+/* Home entries (single column) */
 .entry { padding: 1rem 0; border-bottom: 1px solid var(--border); }
 .entry:last-child { border-bottom: 0; }
 
@@ -45,12 +104,28 @@ a { color: var(--link); }
 .more a { text-decoration: none; }
 .more a:hover { text-decoration: underline; }
 
-/* Tags section (bottom of home) */
-.tags-section h2 { margin-top: 2rem; }
-.taglist { list-style: none; padding: 0; margin: .5rem 0 0 0; }
-.taglist li { margin: .2rem 0; }
-.taglist li::before { content: "* "; color: var(--muted); }
+/* Tags section and Featured (if you enabled it) */
+.tags-section h2, .featured h2 { margin-top: 2rem; }
+.taglist, .featured-list { list-style: none; padding: 0; margin: .5rem 0 0 0; }
+.taglist li, .featured-list li { margin: .25rem 0; }
+.featured-list .muted { color: var(--muted); font-size: .9rem; }
 
 /* Pagination */
 .pagination { margin-top: 1.5rem; }
 .pagination a { margin-right: .6rem; }
+
+/* ---- Responsive: stack on small screens ---- */
+@media (max-width: 900px) {
+  .wrap { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .vnav a { display: inline-block; margin-right: .75rem; padding: .5rem 0; }
+  #theme-toggle { width: auto; margin-left: auto; }
+}
